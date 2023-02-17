@@ -6,8 +6,12 @@
 package utils;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -731,6 +735,61 @@ public class Utils {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Fitxers binaris">
+    
+    public static DataInputStream AbrirFicheroLecturaBinario(String nomFichero, boolean crear) {
+        DataInputStream dis = null;
+        File f = AbrirFichero(nomFichero, crear);
+
+        if (f != null) {
+            // Declarar el writer para poder escribir en el fichero¡
+            FileInputStream reader;
+            try {
+                reader = new FileInputStream(f);
+                // PrintWriter para poder escribir más comodamente
+                dis = new DataInputStream(reader);
+            } catch (IOException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return dis;
+    }
+    
+    public static DataOutputStream AbrirFicheroEscrituraBinario(String nomFichero, boolean crear, boolean blnAnyadir) {
+        DataOutputStream dos = null;
+        File f = AbrirFichero(nomFichero, crear);
+
+        if (f != null) {
+            // Declarar el writer para poder escribir en el fichero¡
+            FileOutputStream writer;
+            try {
+                writer = new FileOutputStream(f, blnAnyadir);
+                // PrintWriter para poder escribir más comodamente
+                dos = new DataOutputStream(writer);
+            } catch (IOException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return dos;
+    }
+    
+    public static void CerrarFicheroBinario(DataOutputStream dos) {
+        try {
+            dos.flush();
+            dos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void CerrarFicheroBinario(DataInputStream dis) {
+        try {
+            dis.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     // </editor-fold>
     
