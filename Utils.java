@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
  * Llibreria d'utilitats.
  * Utilitats per l'assignatura de Programació de 1r de DAM
  * @author rubsersot
- * @version 16-02-2023
+ * @version 9-03-2023
  *
  */
 public class Utils {
@@ -774,7 +775,7 @@ public class Utils {
         return dos;
     }
     
-    public static void CerrarFicheroBinario(DataOutputStream dos) {
+    public static void CerrarEscrituraBinario(DataOutputStream dos) {
         try {
             dos.flush();
             dos.close();
@@ -783,7 +784,7 @@ public class Utils {
         }
     }
     
-    public static void CerrarFicheroBinario(DataInputStream dis) {
+    public static void CerrarLecturaBinario(DataInputStream dis) {
         try {
             dis.close();
         } catch (IOException ex) {
@@ -792,6 +793,36 @@ public class Utils {
     }
     
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Accés Aleatori">
+    
+    public static RandomAccessFile AbrirAccesoDirecto(String nomFitxer, String mode){
+        RandomAccessFile raf = null;
+        try {
+            raf = new RandomAccessFile(nomFitxer, mode);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return raf;
+    }
+    
+    public static void moverPuntero(RandomAccessFile raf, long posicionMover){
+        try {
+            raf.seek(posicionMover);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void cerrarAccesoDirecto(RandomAccessFile raf){
+        try {
+            raf.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    // <editor-fold>
     
 // </editor-fold>
     
