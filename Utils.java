@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package prueba;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -20,6 +20,7 @@ import java.io.RandomAccessFile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -582,6 +583,21 @@ public class Utils {
     }
 
     // </editor-fold>
+    
+// </editor-fold>
+    
+// <editor-fold defaultstate="collapsed" desc="Random">
+    
+    public static void shuffleArray(int[] vector){
+        Random rnd = new Random();
+        
+        for(int i = vector.length-1; i >= 0; --i){
+            int pos = rnd.nextInt(vector.length);
+            int aux = vector[pos];
+            vector[pos] = vector[i];
+            vector[i] = aux;
+        }
+    }
     
 // </editor-fold>
     
