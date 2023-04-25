@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prueba;
+package UtilsExamenUF3;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * Llibreria d'utilitats.
  * Utilitats per l'assignatura de Programació de 1r de DAM
  * @author rubsersot
- * @version 9-03-2023
+ * @version 25-04-2023
  *
  */
 public class Utils {
@@ -79,6 +79,10 @@ public class Utils {
 // <editor-fold defaultstate="collapsed" desc="Implementació de LlegirInt()">
     private static Scanner scan = null;
 
+    public static void LlegirSaltLinia(){
+        scan.nextLine();
+    }
+    
     /**
      * Llegeix un nombre enter.
      * Comprovarà que l'entrada del escàner no es buida i llegirà un nombre enter.
@@ -303,8 +307,38 @@ public class Utils {
     }
 
 // </editor-fold>
+    
+// <editor-fold defaultstate="collapsed" desc="Implementació de LlegirString()">
+    
+    public static String LlegirString(){
+        if (scan == null) {
+            scan = new Scanner(System.in);
+        }
+        return scan.nextLine();
+    }
+    
+    public static String LlegirString(String missatge){
+        System.out.print(missatge);
+        return LlegirString();
+    }
+    
+// </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Dates">
+    
+    public static Date demanarData(){
+        boolean valid = false;
+        int dia = 0, mes = 0, any = 0;
+        while(!valid){
+            dia = Utils.LlegirInt("Introdueix el dia de la representació: ");
+            mes = Utils.LlegirInt("Introdueix el mes de la representació: ");
+            any = Utils.LlegirInt("Introdueix el any de la representació: ");
+            if(Utils.ComprovarData(dia, mes, any)) valid = true;
+            else System.out.println("Data no vàlida, torna a introduir-la");
+        }
+        Date data = new Date(any, mes, dia);
+        return data;
+    }
     
     /**
      * Comprova si una data és vàlida.
